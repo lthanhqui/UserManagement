@@ -27,8 +27,27 @@ public class UserServiceImpl implements UserService {
         for (User user : users) {
             result.add(UserMapper.toUserDTO(user));
         }
-
         return result;
     }
 
+    @Override
+    public UserDTO getUserById(int id) {
+        for (User user : users) {
+            if (user.getId() == id) {
+                return UserMapper.toUserDTO(user);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<UserDTO> searchUser(String keyword) {
+        List<UserDTO> result = new ArrayList<>();
+        for (User user : users) {
+            if (user.getName().contains(keyword)) {
+                result.add(UserMapper.toUserDTO(user));
+            }
+        }
+        return result;
+    }
 }

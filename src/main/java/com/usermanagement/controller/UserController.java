@@ -5,9 +5,7 @@ import com.usermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,17 @@ public class UserController {
     public ResponseEntity<?> getListUser(){
         List<UserDTO> result = userService.getListUser();
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable int id){
+        UserDTO result = userService.getUserById(id);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchUser(@RequestParam ( required = false, defaultValue = "")  String name){
+        List<UserDTO> result = userService.searchUser(name);
+        return ResponseEntity.ok(result);
     }
 }
