@@ -1,6 +1,7 @@
 package com.usermanagement.service;
 
 import com.usermanagement.entity.User;
+import com.usermanagement.exception.NotFoundException;
 import com.usermanagement.model.dto.UserDTO;
 import com.usermanagement.model.mapper.UserMapper;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,8 @@ public class UserServiceImpl implements UserService {
                 return UserMapper.toUserDTO(user);
             }
         }
-        return null;
+        throw new NotFoundException("Not found User");
+
     }
 
     @Override
