@@ -4,7 +4,9 @@ import com.usermanagement.entity.User;
 import com.usermanagement.exception.NotFoundException;
 import com.usermanagement.model.dto.UserDTO;
 import com.usermanagement.model.mapper.UserMapper;
+import com.usermanagement.model.request.CreateUserReq;
 import org.springframework.stereotype.Component;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,5 +53,18 @@ public class UserServiceImpl implements UserService {
             }
         }
         return result;
+    }
+
+    @Override
+    public UserDTO createUser(CreateUserReq req){
+        User user = new User();
+        user.setId(users.size()+1);
+        user.setName(req.getName());
+        user.setPhone(req.getPhone());
+        user.setEmail(req.getEmail());
+        user.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
+        users.add(user);
+        return UserMapper.toUserDTO(user);
+
     }
 }
