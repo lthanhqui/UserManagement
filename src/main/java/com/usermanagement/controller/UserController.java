@@ -32,4 +32,26 @@ public class UserController {
         List<UserDTO> result = userService.searchUser(name);
         return ResponseEntity.ok(result);
     }
+<<<<<<< Updated upstream
+=======
+
+    @PostMapping("")
+    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserReq req){
+        UserDTO result = userService.createUser(req);
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserReq req, @PathVariable int id) {
+        UserDTO result = userService.updateUser(req, id);
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("Delete success");
+    }
+
+>>>>>>> Stashed changes
 }

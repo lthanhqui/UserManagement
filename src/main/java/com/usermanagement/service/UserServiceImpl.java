@@ -50,4 +50,59 @@ public class UserServiceImpl implements UserService {
         }
         return result;
     }
+<<<<<<< Updated upstream
+=======
+
+    @Override
+    public UserDTO createUser(CreateUserReq req) {
+        for (User user : users) {
+            if (user.getEmail().equals(req.getEmail())) {
+                throw new DuplicateRecordException("Email already exists in the system");
+            }
+        }
+        User user = new User();
+        user.setId(users.size() + 1);
+        user.setName(req.getName());
+        user.setPhone(req.getPhone());
+        user.setEmail(req.getEmail());
+        user.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
+        users.add(user);
+        return UserMapper.toUserDTO(user);
+    }
+
+    @Override
+    public UserDTO updateUser(UpdateUserReq req, int id) {
+        for (User user : users) {
+            if (user.getId() == id) {
+                if (!user.getEmail().equals(req.getEmail())) {
+                    // Check new email exist
+                    for (User userWithEmailExist : users) {
+                        if (userWithEmailExist.getEmail().equals(req.getEmail())) {
+                            throw new DuplicateRecordException("New email already exists in the system");
+                        }
+                    }
+                    user.setEmail(req.getEmail());
+                }
+                user.setName(req.getName());
+                user.setPhone(req.getPhone());
+                user.setAvatar(req.getAvatar());
+                user.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
+                return UserMapper.toUserDTO(user);
+            }
+        }
+        throw new NotFoundException("No user found");
+    }
+
+    @Override
+    public boolean deleteUser(int id) {
+        for (User user : users) {
+            if (user.getId() == id) {
+                users.remove(user);
+                return true;
+            }
+        }
+
+        throw new NotFoundException("No user found");
+    }
+>>>>>>> Stashed changes
 }
