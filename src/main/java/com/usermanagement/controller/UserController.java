@@ -2,6 +2,7 @@ package com.usermanagement.controller;
 
 import com.usermanagement.model.dto.UserDTO;
 import com.usermanagement.model.request.CreateUserReq;
+import com.usermanagement.model.request.UpdateUserReq;
 import com.usermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,12 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserReq req){
         UserDTO result = userService.createUser(req);
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserReq req, @PathVariable int id) {
+        UserDTO result = userService.updateUser(req, id);
         return ResponseEntity.ok(result);
     }
 }
