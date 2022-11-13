@@ -33,7 +33,15 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> 0513185 (deldete user)
+>>>>>>> Stashed changes
 
     @PostMapping("")
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserReq req){
@@ -46,6 +54,11 @@ public class UserController {
         UserDTO result = userService.updateUser(req, id);
         return ResponseEntity.ok(result);
     }
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable int id) {
@@ -53,5 +66,9 @@ public class UserController {
         return ResponseEntity.ok("Delete success");
     }
 
+>>>>>>> Stashed changes
+<<<<<<< Updated upstream
+=======
+>>>>>>> 0513185 (deldete user)
 >>>>>>> Stashed changes
 }

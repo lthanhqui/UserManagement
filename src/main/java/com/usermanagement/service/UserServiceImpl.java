@@ -51,7 +51,15 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> 0513185 (deldete user)
+>>>>>>> Stashed changes
 
     @Override
     public UserDTO createUser(CreateUserReq req) {
@@ -92,6 +100,11 @@ public class UserServiceImpl implements UserService {
         }
         throw new NotFoundException("No user found");
     }
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 
     @Override
     public boolean deleteUser(int id) {
@@ -104,5 +117,9 @@ public class UserServiceImpl implements UserService {
 
         throw new NotFoundException("No user found");
     }
+>>>>>>> Stashed changes
+<<<<<<< Updated upstream
+=======
+>>>>>>> 0513185 (deldete user)
 >>>>>>> Stashed changes
 }
