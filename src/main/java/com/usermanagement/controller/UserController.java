@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/users")
@@ -35,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createUser(@RequestBody CreateUserReq req){
+    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserReq req){
         UserDTO result = userService.createUser(req);
         return ResponseEntity.ok(result);
     }
