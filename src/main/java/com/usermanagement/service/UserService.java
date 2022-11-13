@@ -14,6 +14,7 @@ public interface UserService {
     public List<UserDTO> searchUser(String keyword);
     public UserDTO createUser(CreateUserReq req);
     public UserDTO updateUser(UpdateUserReq red, int id);
+    public boolean deleteUser(int id);
 
 
 }

@@ -96,4 +96,16 @@ public class UserServiceImpl implements UserService {
         }
         throw new NotFoundException("No user found");
     }
+
+    @Override
+    public boolean deleteUser(int id) {
+        for (User user : users) {
+            if (user.getId() == id) {
+                users.remove(user);
+                return true;
+            }
+        }
+
+        throw new NotFoundException("No user found");
+    }
 }
