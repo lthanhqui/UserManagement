@@ -1,6 +1,7 @@
 package com.usermanagement.service;
 
 import com.usermanagement.entity.User;
+import com.usermanagement.exception.DuplicateRecordException;
 import com.usermanagement.exception.NotFoundException;
 import com.usermanagement.model.dto.UserDTO;
 import com.usermanagement.model.mapper.UserMapper;
@@ -57,6 +58,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO createUser(CreateUserReq req){
+        for(User user : users){
+            if (user.getEmail().equals(req.getEmail()))
+            {
+                throw new DuplicateRecordException("Email already exists in the system");
+            }
+        }
         User user = new User();
         user.setId(users.size()+1);
         user.setName(req.getName());
