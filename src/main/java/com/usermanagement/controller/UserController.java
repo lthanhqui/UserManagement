@@ -1,6 +1,7 @@
 package com.usermanagement.controller;
 
 import com.usermanagement.model.dto.UserDTO;
+import com.usermanagement.model.request.CreateUserReq;
 import com.usermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,12 @@ public class UserController {
     @GetMapping("/search")
     public ResponseEntity<?> searchUser(@RequestParam ( required = false, defaultValue = "")  String name){
         List<UserDTO> result = userService.searchUser(name);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> createUser(@RequestBody CreateUserReq req){
+        UserDTO result = userService.createUser(req);
         return ResponseEntity.ok(result);
     }
 }
