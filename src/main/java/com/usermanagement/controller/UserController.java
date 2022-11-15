@@ -1,11 +1,14 @@
 package com.usermanagement.controller;
 
+import com.usermanagement.exception.NotFoundException;
 import com.usermanagement.model.dto.UserDTO;
 import com.usermanagement.model.request.CreateUserReq;
 import com.usermanagement.model.request.UpdateUserReq;
 import com.usermanagement.model.request.UploadFile;
 import com.usermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import javax.validation.Valid;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -86,6 +90,25 @@ public class UserController {
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request");
+    }
+
+    @GetMapping("/file/{filename}")
+    public ResponseEntity<?> download(@PathVariable String filename) {
+        File file = new File(UPLOAD_DIR + "/" + filename);
+        if (!file.exists()) {
+            throw new NotFoundException("File not found");
+        }
+
+        UrlResource resource;
+        try {
+            resource = new UrlResource(file.toURI());
+        } catch (MalformedURLException e) {
+            throw new NotFoundException("File not found");
+        }
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
+                .body(resource);
     }
 
 
