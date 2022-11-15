@@ -11,11 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import javax.validation.Valid;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("/users")
 @RestController
@@ -69,7 +71,7 @@ public class UserController {
         }
 
         MultipartFile fileData = form.getFileData();
-        String name = fileData.getOriginalFilename();
+        String name = UUID.randomUUID().toString().replaceAll("_", "") + "-" + fileData.getOriginalFilename();
         if (name != null && name.length() > 0) {
             try {
                 // Create file
