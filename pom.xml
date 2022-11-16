@@ -11,8 +11,8 @@
     <groupId>com.greenhome</groupId>
     <artifactId>greenhome</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>serManagement</name>
-    <description>serManagement</description>
+    <name>UserManagement</name>
+    <description>UserManagement</description>
     <properties>
         <java.version>19</java.version>
     </properties>
@@ -44,6 +44,11 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
             <version>2.7.0</version>
         </dependency>
     </dependencies>
