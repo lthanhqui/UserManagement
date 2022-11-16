@@ -6,6 +6,9 @@ import com.usermanagement.model.request.CreateUserReq;
 import com.usermanagement.model.request.UpdateUserReq;
 import com.usermanagement.model.request.UploadFile;
 import com.usermanagement.service.UserService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -29,13 +32,20 @@ public class UserController {
     private static String UPLOAD_DIR = System.getProperty("user.home") + "/upload";
     @Autowired
     public UserService userService;
-
+    @ApiOperation(value = "Get list user", response = UserDTO.class, responseContainer = "List")
+    @ApiResponses({
+            @ApiResponse(code=500,message = "")
+    })
     @GetMapping("")
     public ResponseEntity<?> getListUser() {
         List<UserDTO> result = userService.getListUser();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
-
+    @ApiOperation(value = "Get user info by id", response = UserDTO.class)
+    @ApiResponses({
+            @ApiResponse(code=404,message = "No user found"),
+            @ApiResponse(code=500,message = "")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable int id) {
         UserDTO result = userService.getUserById(id);
@@ -47,7 +57,11 @@ public class UserController {
         List<UserDTO> result = userService.searchUser(name);
         return ResponseEntity.ok(result);
     }
-
+    @ApiOperation(value = "Create user", response = UserDTO.class)
+    @ApiResponses({
+            @ApiResponse(code=400,message = "Email already exists in the system"),
+            @ApiResponse(code=500,message = "")
+    })
     @PostMapping("")
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserReq req) {
         UserDTO result = userService.createUser(req);
